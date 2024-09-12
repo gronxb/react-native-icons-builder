@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@swc/core": "^1.7.26",
+    "commander": "^12.1.0",
     "react-native-svg": "^15.6.0"
   }
 }
