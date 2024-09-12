@@ -5,7 +5,7 @@ import type { SvgProps } from "react-native-svg";
 import { DefaultContext, IconContext } from "./iconContext";
 
 export interface IconTree {
-  tag: string;
+  tag: React.ElementType;
   attr: { [key: string]: string };
   child: IconTree[];
 }
