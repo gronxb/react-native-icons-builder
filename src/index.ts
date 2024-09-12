@@ -1,73 +1,34 @@
-import { type ModuleItem, printSync, parseSync, Plugin } from "@swc/core";
-import fs from "node:fs";
+import { program } from "commander";
+import { version, dependencies } from "@/package.json";
+import pc from "picocolors";
+import { generateIcon } from "./generateIcon";
 
-const userInput = "AiFillAliwangwang";
+program.version(
+  [
+    pc.green(`react-native-icons-generator: ${version}`),
+    pc.green(`react-icons: ${dependencies["react-icons"]}`),
+  ].join("\n")
+);
 
-const code = fs.readFileSync("./node_modules/react-icons/ai/index.mjs", "utf8");
+program.description(
+  "Generate React Native icons from React Icons. It uses SWC to transform the React Icons code to a React Native component."
+);
 
-const ast = parseSync(code, {
-  syntax: "ecmascript",
-  jsx: true,
-});
-
-function transformStringToIdentifier(moduleItem: ModuleItem): ModuleItem {
-  function transform(item: any): any {
-    if (Array.isArray(item)) {
-      return item.map(transform);
+program
+  .command("add")
+  .description("Add an icon to the project")
+  .argument("<icon-name>", "The name of the icon to add")
+  .action((iconName: string) => {
+    console.log("Generating icons...");
+    try {
+      generateIcon(iconName);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error(error);
+      }
     }
+  });
 
-    if (typeof item === "object" && item !== null) {
-      if (
-        item.type === "KeyValueProperty" &&
-        item.key.value === "tag" &&
-        item.value.type === "StringLiteral"
-      ) {
-        return {
-          ...item,
-          value: {
-            type: "Identifier",
-            span: {
-              start: item.value.span.start,
-              end: item.value.span.end - 2,
-            },
-            ctxt: 0,
-            value:
-              item.value.value.charAt(0).toUpperCase() +
-              item.value.value.slice(1),
-            optional: false,
-          },
-        };
-      }
-
-      const newObj = {} as Record<string, any>;
-      for (const key in item) {
-        newObj[key] = transform(item[key]);
-      }
-      return newObj;
-    }
-
-    return item;
-  }
-
-  return transform(moduleItem);
-}
-
-const filteredAst = {
-  ...ast,
-  body: ast.body
-    .filter((node) => {
-      if (
-        node.type === "ExportDeclaration" &&
-        node.declaration.type === "FunctionDeclaration" &&
-        node.declaration.identifier.value === userInput
-      ) {
-        return true;
-      }
-      return false;
-    })
-    .map(transformStringToIdentifier),
-};
-
-const outputCode = printSync(filteredAst, {});
-
-console.log(outputCode.code);
+program.parse();
