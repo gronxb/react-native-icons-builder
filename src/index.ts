@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { program } from "commander";
 import { version, dependencies } from "@/package.json";
 import pc from "picocolors";

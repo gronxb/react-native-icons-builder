@@ -2,21 +2,35 @@
   "name": "react-native-icons-generator",
   "type": "module",
   "version": "0.0.1",
-  "description": "Generate React Native icons from React Icons",
-  "bin": "index.js",
-  "scripts": {
-    "build": "node --import @swc-node/register/esm-register src/index.ts"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gronxb/react-native-icons-generator.git"
   },
+  "homepage": "https://github.com/gronxb/react-native-icons-generator",
+  "description": "Generate React Native icons from React Icons",
+  "bin": {
+    "rn-icons": "./dist/index.js",
+    "react-native-icons-generator": "./dist/index.js"
+  },
+  "scripts": {
+    "test:type": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@swc-node/register": "^1.10.9",
     "@types/node": "^22.5.4",
     "@types/react": "^18.3.5",
     "react": "^18.3.1",
-    "react-native": "^0.75.3"
+    "react-native": "^0.75.3",
+    "typescript": "^5.6.2"
   },
   "dependencies": {
     "@swc/core": "^1.7.26",
