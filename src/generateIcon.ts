@@ -1,17 +1,16 @@
-import { type ModuleItem, printSync, parseSync } from "@swc/core";
 import fs from "fs";
-import { cwd } from "./cwd";
+import { type ModuleItem, parseSync, printSync } from "@swc/core";
 import { findUpSync } from "find-up";
+import { cwd } from "./cwd";
 
 export const generateIcon = (iconName: string) => {
   const prefix = iconName.slice(0, 2).toLowerCase();
 
-  const path = findUpSync(`node_modules/react-icons/${prefix}/index.mjs`, {
-    cwd: cwd(),
-  });
-  if (!path) {
-    throw new Error(`Icon ${iconName} not found`);
-  }
+  const path = import.meta
+    .resolve("react-icons")
+    .replace("file://", "")
+    .replace("/index.mjs", `/${prefix}/index.mjs`);
+
   const code = fs.readFileSync(path, "utf8");
 
   const ast = parseSync(code, {
