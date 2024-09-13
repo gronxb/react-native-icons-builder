@@ -1,16 +1,16 @@
 {
-  "name": "react-native-icons-generator",
+  "name": "react-native-icons-builder",
   "type": "module",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gronxb/react-native-icons-generator.git"
+    "url": "https://github.com/gronxb/react-native-icons-builder.git"
   },
-  "homepage": "https://github.com/gronxb/react-native-icons-generator",
-  "description": "Generate React Native icons from React Icons",
+  "homepage": "https://github.com/gronxb/react-native-icons-builder",
+  "description": "Generate React Native icons CLI from React Icons",
   "bin": {
     "rn-icons": "./dist/index.js",
-    "react-native-icons-generator": "./dist/index.js"
+    "react-native-icons-builder": "./dist/index.js"
   },
   "scripts": {
     "test:type": "tsc --noEmit",

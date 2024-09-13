@@ -6,7 +6,7 @@ import { generateIcon } from "./generateIcon";
 
 program.version(
   [
-    pc.green(`react-native-icons-generator: ${version}`),
+    pc.green(`react-native-icons-builder: ${version}`),
     pc.green(`react-icons: ${dependencies["react-icons"]}`),
   ].join("\n")
 );
