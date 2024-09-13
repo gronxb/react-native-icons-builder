@@ -1,15 +1,18 @@
 import { type ModuleItem, printSync, parseSync } from "@swc/core";
-import fs from "node:fs";
-
-const cwd = process.cwd();
+import fs from "fs";
+import { cwd } from "./cwd";
+import { findUpSync } from "find-up";
 
 export const generateIcon = (iconName: string) => {
   const prefix = iconName.slice(0, 2).toLowerCase();
 
-  const code = fs.readFileSync(
-    `${cwd}/node_modules/react-icons/${prefix}/index.mjs`,
-    "utf8"
-  );
+  const path = findUpSync(`node_modules/react-icons/${prefix}/index.mjs`, {
+    cwd: cwd(),
+  });
+  if (!path) {
+    throw new Error(`Icon ${iconName} not found`);
+  }
+  const code = fs.readFileSync(path, "utf8");
 
   const ast = parseSync(code, {
     syntax: "ecmascript",
@@ -75,7 +78,6 @@ export const generateIcon = (iconName: string) => {
   };
 
   const outputCode = printSync(filteredAst, {});
-
   if (outputCode.code.length === 0) {
     throw new Error(`Icon ${iconName} not found`);
   }

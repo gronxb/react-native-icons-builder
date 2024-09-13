@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test:type": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsup src/index.ts --format esm"
   },
   "files": [
     "dist",
@@ -30,14 +30,16 @@
     "@types/react": "^18.3.5",
     "react": "^18.3.1",
     "react-native": "^0.75.3",
+    "react-native-svg": "^15.6.0",
+    "tsup": "^8.2.4",
     "typescript": "^5.6.2"
   },
   "dependencies": {
     "@swc/core": "^1.7.26",
     "commander": "^12.1.0",
+    "find-up": "^7.0.0",
     "picocolors": "^1.1.0",
     "react-icons": "5.3.0",
-    "react-native-svg": "^15.6.0",
     "workspace-tools": "^0.36.4"
   }
 }

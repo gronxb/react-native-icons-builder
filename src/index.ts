@@ -22,7 +22,7 @@ program
   .action((iconName: string) => {
     console.log("Generating icons...");
     try {
-      generateIcon(iconName);
+      console.log(generateIcon(iconName));
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
