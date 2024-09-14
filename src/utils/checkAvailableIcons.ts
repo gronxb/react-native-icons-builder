@@ -6,7 +6,7 @@ export const checkAvailableIcons = async (
 ) => {
   try {
     const icons = import.meta.resolve(`react-icons/${prefix}`);
-    const file = await fs.readFile(icons, "utf8");
+    const file = await fs.readFile(icons.replace("file://", ""), "utf8");
     return (
       iconNames.length > 0 &&
       iconNames.every((iconName) => file.includes(iconName))
