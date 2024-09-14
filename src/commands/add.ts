@@ -16,7 +16,7 @@ export const add = async (iconNames: string[]) => {
     await Promise.all(
       groupedIcons.map(async ([prefix, icons]) => {
         if (!(await checkAvailableIcons(prefix, icons))) {
-          throw new Error(`Not found ${prefix}`);
+          throw new Error(`Not found ${icons.join(", ")}`);
         }
       })
     );
