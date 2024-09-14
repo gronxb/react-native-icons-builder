@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import { z } from "zod";
 import { getCwd } from "./cwd";
 import { uniq } from "./uniq";
+import { existsSync } from "fs";
 
 export const configSchema = z.object({
   typescript: z.boolean(),
@@ -43,4 +44,9 @@ export const initConfig = async (config: Config) => {
     "utf8"
   );
   return data;
+};
+
+export const checkIfConfigExists = () => {
+  const cwd = getCwd();
+  return existsSync(path.join(cwd, "react-native-icons-builder.json"));
 };

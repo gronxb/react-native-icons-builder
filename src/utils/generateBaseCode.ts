@@ -2,6 +2,7 @@ import path from "path";
 import type { Config } from "./config";
 import { getCwd, getDirname } from "./cwd";
 import fs from "fs/promises";
+import { log } from "./console";
 
 export const generateBaseCode = async (config: Config) => {
   const iconBase = config.typescript ? "iconBase.tsx" : "iconBase.jsx";
@@ -21,4 +22,6 @@ export const generateBaseCode = async (config: Config) => {
       path.join(outputPath, iconContext)
     ),
   ]);
+  log.save(path.join(config.outputPath, iconBase));
+  log.save(path.join(config.outputPath, iconContext));
 };

@@ -25,7 +25,7 @@ export const init = async () => {
   );
 
   try {
-    initConfig({
+    const result = await initConfig({
       ...config,
       icons: [],
     });
@@ -37,6 +37,7 @@ export const init = async () => {
       "Click here to explore available icons",
       "https://react-icons.github.io/react-icons/"
     );
+    return result;
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);

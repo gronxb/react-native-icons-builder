@@ -8,7 +8,7 @@ https://react-icons.github.io/react-icons/
 
 Check out the icons you want here and enter the following command:
 ```sh
-> npx react-native-icons-builder add AiFillApple
+> npx react-native-icons-builder@latest add AiFillApple
 ```
 
 ## Motivation
@@ -27,15 +27,13 @@ Check out the icons you want here and enter the following command:
 * Basic
 ```sh
 > npm install react-native-svg # or use pnpm or yarn
-> npx react-native-icons-builder init
-> npx react-native-icons-builder add AiFillApple # visit https://react-icons.github.io/react-icons/
+> npx react-native-icons-builder@latest add AiFillApple # visit https://react-icons.github.io/react-icons/
 ```
 
 * Shorthand
 ```sh
 > npm install react-native-svg react-native-icons-builder # or use pnpm or yarn
-> npm rn-icons init
-> npx rn-icons add AiFillApple # visit https://react-icons.github.io/react-icons/
+> npm run rn-icons add AiFillApple # visit https://react-icons.github.io/react-icons/
 ```
 
 

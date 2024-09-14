@@ -4,6 +4,7 @@ import { type ModuleItem, parse, print } from "@swc/core";
 import { groupIconsByPrefix } from "./groupIconsByPrefix";
 import type { Config } from "./config";
 import { getCwd } from "./cwd";
+import { log } from "./console";
 
 export const generateIconCode = async (
   prefix: string,
@@ -112,6 +113,7 @@ const saveIcons = async (
   await fs.mkdir($outputPath, { recursive: true });
 
   await fs.writeFile(path.join($outputPath, filename), code, "utf8");
+  log.save(path.join(outputPath, filename));
 };
 
 export const syncIcons = async (config: Config) => {
