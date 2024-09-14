@@ -3,6 +3,16 @@ import type { Config } from "./config";
 import { getCwd, getDirname } from "./cwd";
 import fs from "fs/promises";
 import { log } from "./console";
+import { existsSync } from "fs";
+
+const copyFile = async (src: string, dest: string) => {
+  if (existsSync(dest)) {
+    return;
+  }
+
+  await fs.copyFile(src, dest);
+  log.save(dest);
+};
 
 export const generateBaseCode = async (config: Config) => {
   const iconBase = config.typescript ? "iconBase.tsx" : "iconBase.jsx";
@@ -13,15 +23,13 @@ export const generateBaseCode = async (config: Config) => {
 
   await fs.mkdir(outputPath, { recursive: true });
   await Promise.all([
-    fs.copyFile(
+    copyFile(
       path.join(templatesPath, iconBase),
       path.join(outputPath, iconBase)
     ),
-    fs.copyFile(
+    copyFile(
       path.join(templatesPath, iconContext),
       path.join(outputPath, iconContext)
     ),
   ]);
-  log.save(path.join(config.outputPath, iconBase));
-  log.save(path.join(config.outputPath, iconContext));
 };
