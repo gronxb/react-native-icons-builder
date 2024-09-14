@@ -1,7 +1,8 @@
 # react-native-icons-builder
 
 ## Introduction
-`react-native-icons-builder` is a CLI tool designed to generate React Native icons from the React Icons library. It uses SWC to transform the React Icons code into React Native components.
+`react-native-icons-builder` is a CLI tool designed to generate React Native icons from the `react-icons` library.  
+It uses SWC to transform the React Icons code into React Native components.  
 
 https://react-icons.github.io/react-icons/
 
@@ -16,7 +17,7 @@ React Icons are not natively compatible with React Native. Bundling all icons fr
 
 ## Key Features
 
-* No additional dependencies are required, except for react-native-svg, which is commonly used in React Native.
+* No additional dependencies are required, except for `react-native-svg`, which is commonly used in React Native.
 * No native code is involved, making it simple to integrate.
 * Supports all icons available in the React Icons library.
 
@@ -37,6 +38,6 @@ React Icons are not natively compatible with React Native. Bundling all icons fr
 
 
 ## Credit
-This project is based on `react-icons`.
-https://github.com/react-icons/react-icons
-Thank you for `react-icons`.
+This project is based on `react-icons`.  
+https://github.com/react-icons/react-icons  
+Thank you to `react-icons`.
