@@ -18,7 +18,12 @@ program.description(
   "Generate React Native icons from React Icons. It uses SWC to transform the React Icons code to a React Native component."
 );
 
-program.command("init").description("Initialize the project").action(init);
+program
+  .command("init")
+  .description("Initialize the project")
+  .action(async () => {
+    await init();
+  });
 
 program
   .command("add")
