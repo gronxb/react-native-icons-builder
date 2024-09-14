@@ -12,9 +12,8 @@ export const generateIconCode = async (
   typescript: boolean
 ) => {
   const path = import.meta
-    .resolve("react-icons")
-    .replace("file://", "")
-    .replace("/index.mjs", `/${prefix}/index.mjs`);
+    .resolve(`react-icons/${prefix}`)
+    .replace("file://", "");
 
   const reactIconsCode = await fs.readFile(path, "utf8");
 

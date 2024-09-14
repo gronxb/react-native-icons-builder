@@ -1,10 +1,14 @@
+import { separateCamelCase } from "./separateCamelCase";
+
 export const groupIconsByPrefix = (icons: string[]) => {
   const groupedIcons = icons.reduce((acc, icon) => {
-    const prefix = icon.slice(0, 2).toLowerCase();
-    if (!acc[prefix]) {
-      acc[prefix] = [];
+    const [prefix] = separateCamelCase(icon);
+    const lowerPrefix = prefix.toLowerCase();
+    if (!acc[lowerPrefix]) {
+      acc[lowerPrefix] = [];
     }
-    acc[prefix].push(icon);
+
+    acc[lowerPrefix].push(icon);
     return acc;
   }, {} as Record<string, string[]>);
 
