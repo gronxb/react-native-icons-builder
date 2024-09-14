@@ -3,7 +3,6 @@
 import { dependencies, version } from "@/package.json";
 import { program } from "commander";
 import pc from "picocolors";
-import { generateIcon } from "./generateIcon";
 import { init } from "./commands/init";
 import { add } from "./commands/add";
 

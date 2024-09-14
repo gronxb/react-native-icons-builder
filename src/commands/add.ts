@@ -11,7 +11,5 @@ export const add = async (iconName: string) => {
     } else {
       console.error(error);
     }
-  } finally {
-    s.stop("Icon generated");
   }
 };
