@@ -1,19 +1,28 @@
+import path from "path";
 import fs from "fs/promises";
 import { type ModuleItem, parse, print } from "@swc/core";
 import { groupIconsByPrefix } from "./groupIconsByPrefix";
+import type { Config } from "./config";
+import { getCwd } from "./cwd";
 
-export const generateIcon = async (prefix: string, icons: string[]) => {
+export const generateIconCode = async (
+  prefix: string,
+  icons: string[],
+  typescript: boolean
+) => {
   const path = import.meta
     .resolve("react-icons")
     .replace("file://", "")
     .replace("/index.mjs", `/${prefix}/index.mjs`);
 
-  const code = await fs.readFile(path, "utf8");
+  const reactIconsCode = await fs.readFile(path, "utf8");
 
-  const ast = await parse(code, {
+  const ast = await parse(reactIconsCode, {
     syntax: "ecmascript",
     jsx: true,
   });
+
+  const svgTagSet = new Set<string>();
 
   function transformStringToIdentifier(moduleItem: ModuleItem): ModuleItem {
     function transform(item: any): any {
@@ -27,6 +36,10 @@ export const generateIcon = async (prefix: string, icons: string[]) => {
           item.key.value === "tag" &&
           item.value.type === "StringLiteral"
         ) {
+          const svgTag =
+            item.value.value.charAt(0).toUpperCase() +
+            item.value.value.slice(1);
+          svgTagSet.add(svgTag);
           return {
             ...item,
             value: {
@@ -36,9 +49,7 @@ export const generateIcon = async (prefix: string, icons: string[]) => {
                 end: item.value.span.end - 2,
               },
               ctxt: 0,
-              value:
-                item.value.value.charAt(0).toUpperCase() +
-                item.value.value.slice(1),
+              value: svgTag,
               optional: false,
             },
           };
@@ -74,17 +85,41 @@ export const generateIcon = async (prefix: string, icons: string[]) => {
   };
 
   const outputCode = await print(filteredAst, {});
-  if (outputCode.code.length === 0) {
-    // throw new Error(`Icon ${iconName} not found`);
+  let code = outputCode.code;
+  if (typescript) {
+    code = code.replaceAll("(props) ", "(props: IconBaseProps) ");
   }
-  return outputCode.code;
+  code = `
+import { ${[...svgTagSet].join(", ")} } from "react-native-svg"
+import { type IconBaseProps, GenIcon } from "./iconBase";
+  
+${code}
+  `;
+
+  return {
+    filename: typescript ? `${prefix}.tsx` : `${prefix}.jsx`,
+    code,
+  };
 };
 
-export const syncIcons = async (icons: string[]) => {
-  const groupedIcons = groupIconsByPrefix(icons);
+const saveIcons = async (
+  outputPath: string,
+  filename: string,
+  code: string
+) => {
+  const cwd = getCwd();
+  const $outputPath = path.join(cwd, outputPath);
+  await fs.mkdir($outputPath, { recursive: true });
+
+  await fs.writeFile(path.join($outputPath, filename), code, "utf8");
+};
+
+export const syncIcons = async (config: Config) => {
+  const groupedIcons = groupIconsByPrefix(config.icons);
   await Promise.all(
-    groupedIcons.map(([prefix, icons]) => {
-      generateIcon(prefix, icons);
+    groupedIcons.map(async ([prefix, icons]) => {
+      const data = await generateIconCode(prefix, icons, config.typescript);
+      await saveIcons(config.outputPath, data.filename, data.code);
     })
   );
 };

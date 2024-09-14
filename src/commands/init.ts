@@ -9,9 +9,9 @@ export const init = async () => {
         p.confirm({
           message: "Would you like to enable TypeScript support?",
         }),
-      path: () =>
+      outputPath: () =>
         p.text({
-          message: "Specify the directory for storing icons:",
+          message: "Specify the directory for saving icons:",
           placeholder: "assets/icons",
           initialValue: "assets/icons",
         }),
