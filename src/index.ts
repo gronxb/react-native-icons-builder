@@ -5,6 +5,7 @@ import { program } from "commander";
 import pc from "picocolors";
 import { init } from "./commands/init";
 import { add } from "./commands/add";
+import { sync } from "./commands/sync";
 
 program.version(
   [
@@ -24,5 +25,10 @@ program
   .description("Add an icon to the project")
   .argument("<icon-name>", "The name of the icon to add")
   .action(add);
+
+program
+  .command("sync")
+  .description("Sync the icons to the project")
+  .action(sync);
 
 program.parse();
