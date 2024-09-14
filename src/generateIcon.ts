@@ -1,7 +1,5 @@
 import fs from "fs";
 import { type ModuleItem, parseSync, printSync } from "@swc/core";
-import { findUpSync } from "find-up";
-import { cwd } from "./cwd";
 
 export const generateIcon = (iconName: string) => {
   const prefix = iconName.slice(0, 2).toLowerCase();
