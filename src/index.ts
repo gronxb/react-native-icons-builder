@@ -1,8 +1,11 @@
 #!/usr/bin/env node
+
+import { dependencies, version } from "@/package.json";
 import { program } from "commander";
-import { version, dependencies } from "@/package.json";
 import pc from "picocolors";
 import { generateIcon } from "./generateIcon";
+import { init } from "./commands/init";
+import { add } from "./commands/add";
 
 program.version(
   [
@@ -15,21 +18,12 @@ program.description(
   "Generate React Native icons from React Icons. It uses SWC to transform the React Icons code to a React Native component."
 );
 
+program.command("init").description("Initialize the project").action(init);
+
 program
   .command("add")
   .description("Add an icon to the project")
   .argument("<icon-name>", "The name of the icon to add")
-  .action((iconName: string) => {
-    console.log("Generating icons...");
-    try {
-      console.log(generateIcon(iconName));
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      } else {
-        console.error(error);
-      }
-    }
-  });
+  .action(add);
 
 program.parse();

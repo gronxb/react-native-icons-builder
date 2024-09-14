@@ -1,17 +1,16 @@
-import fs from "fs";
-import { type ModuleItem, parseSync, printSync } from "@swc/core";
+import fs from "fs/promises";
+import { type ModuleItem, parse, print } from "@swc/core";
+import { groupIconsByPrefix } from "./groupIconsByPrefix";
 
-export const generateIcon = (iconName: string) => {
-  const prefix = iconName.slice(0, 2).toLowerCase();
-
+export const generateIcon = async (prefix: string, icons: string[]) => {
   const path = import.meta
     .resolve("react-icons")
     .replace("file://", "")
     .replace("/index.mjs", `/${prefix}/index.mjs`);
 
-  const code = fs.readFileSync(path, "utf8");
+  const code = await fs.readFile(path, "utf8");
 
-  const ast = parseSync(code, {
+  const ast = await parse(code, {
     syntax: "ecmascript",
     jsx: true,
   });
@@ -65,7 +64,7 @@ export const generateIcon = (iconName: string) => {
         if (
           node.type === "ExportDeclaration" &&
           node.declaration.type === "FunctionDeclaration" &&
-          node.declaration.identifier.value === iconName
+          icons.includes(node.declaration.identifier.value)
         ) {
           return true;
         }
@@ -74,9 +73,18 @@ export const generateIcon = (iconName: string) => {
       .map(transformStringToIdentifier),
   };
 
-  const outputCode = printSync(filteredAst, {});
+  const outputCode = await print(filteredAst, {});
   if (outputCode.code.length === 0) {
-    throw new Error(`Icon ${iconName} not found`);
+    // throw new Error(`Icon ${iconName} not found`);
   }
   return outputCode.code;
+};
+
+export const syncIcons = async (icons: string[]) => {
+  const groupedIcons = groupIconsByPrefix(icons);
+  await Promise.all(
+    groupedIcons.map(([prefix, icons]) => {
+      generateIcon(prefix, icons);
+    })
+  );
 };
