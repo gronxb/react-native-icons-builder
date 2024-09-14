@@ -117,10 +117,15 @@ const saveIcons = async (
 
 export const syncIcons = async (config: Config) => {
   const groupedIcons = groupIconsByPrefix(config.icons);
-  await Promise.all(
+
+  await Promise.allSettled(
     groupedIcons.map(async ([prefix, icons]) => {
-      const data = await generateIconCode(prefix, icons, config.typescript);
-      await saveIcons(config.outputPath, data.filename, data.code);
+      try {
+        const data = await generateIconCode(prefix, icons, config.typescript);
+        await saveIcons(config.outputPath, data.filename, data.code);
+      } catch (error) {
+        log.error(`Not found ${prefix}`);
+      }
     })
   );
 };
