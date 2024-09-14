@@ -13,13 +13,15 @@ Check out the icons you want here and enter the following command:
 
 ## Motivation
 
-React Icons are not natively compatible with React Native. Bundling all icons from React Icons into a React Native project can lead to larger bundle sizes since Metro doesn’t support Tree Shaking effectively. This tool provides an easy way to use React Icons within React Native without the risk of bloated bundle sizes.
+* **React Icons are not natively compatible with React Native:** React Icons is a popular library for web applications but doesn’t work out of the box with React Native. This tool provides a way to transform React Icons into React Native components, making them usable without unnecessary overhead.
+
+* **Metro doesn’t support Tree Shaking effectively:** Metro, the bundler used in React Native, lacks efficient Tree Shaking capabilities. Therefore, bundling all of the React Icons together could lead to increased bundle sizes. This tool minimizes bundle size by allowing you to install only the icons you need directly into your project.
 
 ## Key Features
 
-* No additional dependencies are required, except for `react-native-svg`, which is commonly used in React Native.
-* No native code is involved, making it simple to integrate.
 * Supports all icons available in the React Icons library.
+* Designed with zero external dependencies (except for `react-native-svg`).
+* No native code is involved, making it simple to integrate.
 
 ## Usage
 * Basic
