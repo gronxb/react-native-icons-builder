@@ -22,8 +22,8 @@ program.command("init").description("Initialize the project").action(init);
 
 program
   .command("add")
-  .description("Add an icon to the project")
-  .argument("<icon-name>", "The name of the icon to add")
+  .description("Add icons to the project")
+  .argument("<icon-names...>", "The names of the icons to add")
   .action(add);
 
 program

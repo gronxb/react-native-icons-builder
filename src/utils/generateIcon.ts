@@ -91,7 +91,7 @@ export const generateIconCode = async (
   }
   code = `
 import { ${[...svgTagSet].join(", ")} } from "react-native-svg"
-import { type IconBaseProps, GenIcon } from "./iconBase";
+import { ${typescript ? "type IconBaseProps, " : ""}GenIcon } from "./iconBase";
   
 ${code}
   `;

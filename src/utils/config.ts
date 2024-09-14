@@ -24,9 +24,9 @@ export const loadConfig = async () => {
   return config;
 };
 
-export const addIcon = async (iconName: string) => {
+export const addIcons = async (iconNames: string[]) => {
   const config = await loadConfig();
-  const updatedIcons = uniq([...config.icons, iconName]);
+  const updatedIcons = uniq([...config.icons, ...iconNames]);
   config.icons = updatedIcons;
 
   return initConfig(config);
