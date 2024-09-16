@@ -28,7 +28,7 @@ program
 program
   .command("add")
   .description("Add icons to the project")
-  .argument("<icon-names...>", "The names of the icons to add")
+  .argument("<icon-name>", "The names of the icon to add")
   .action(add);
 
 program
