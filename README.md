@@ -2,8 +2,6 @@
 [![NPM](https://img.shields.io/npm/v/react-native-icons-builder)](https://www.npmjs.com/package/react-native-icons-builder)
 
 
-![react-native-icons-builder](https://raw.githubusercontent.com/gronxb/react-native-icons-builder/main/demo.gif)
-
 
 ## Introduction
 `react-native-icons-builder` is a CLI tool designed to generate React Native icons from the `react-icons` library.  
@@ -15,6 +13,10 @@ Check out the icons you want here and enter the following command:
 ```sh
 > npx react-native-icons-builder@latest add AiFillApple
 ```
+![react-native-icons-builder](https://github.com/gronxb/react-native-icons-builder/blob/main/demo.gif)
+
+
+
 
 ## Motivation
 
