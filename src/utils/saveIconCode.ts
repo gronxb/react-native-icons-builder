@@ -13,5 +13,4 @@ export const saveIconCode = async (
   await fs.mkdir($outputPath, { recursive: true });
 
   await fs.writeFile(path.join($outputPath, filename), code, "utf8");
-  log.save(path.join(outputPath, filename));
 };

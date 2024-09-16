@@ -4,6 +4,7 @@ import { init } from "./init";
 import { log } from "../utils/console";
 import { isCancel, select } from "@clack/prompts";
 import { IconManager } from "src/iconManager";
+import pc from "picocolors";
 
 export const add = async (iconName: string) => {
   try {
@@ -58,7 +59,12 @@ export const add = async (iconName: string) => {
     await iconManager.addIcon(prefix as string, iconNameToUse);
     await generateBaseCode(config);
     await iconManager.sync();
-    log.success("Icon added successfully");
+    console.log(`${pc.green("Add")} ${iconNameToUse}`);
+    console.log(
+      pc.gray(`import { ${iconNameToUse} } from "${config.outputPath}/${prefix}";
+
+<${iconNameToUse} size={24} />`)
+    );
   } catch (error) {
     if (error instanceof Error) {
       log.error(error.message);

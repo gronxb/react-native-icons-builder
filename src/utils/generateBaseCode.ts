@@ -32,10 +32,10 @@ export const generateBaseCode = async (config: Config) => {
     copyFile(
       path.join(templatesPath, iconBase),
       path.join(outputPath, iconBase)
-    ).then(() => log.save(path.join(config.outputPath, iconBase))),
+    ),
     copyFile(
       path.join(templatesPath, iconContext),
       path.join(outputPath, iconContext)
-    ).then(() => log.save(path.join(config.outputPath, iconContext))),
+    ),
   ]);
 };
