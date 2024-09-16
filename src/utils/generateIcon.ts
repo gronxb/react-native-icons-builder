@@ -1,10 +1,5 @@
-import path from "path";
 import fs from "fs/promises";
 import { type ModuleItem, parse, print } from "@swc/core";
-import { groupIconsByPrefix } from "./groupIconsByPrefix";
-import type { Config } from "./config";
-import { getCwd } from "./cwd";
-import { log } from "./console";
 import packageJson from "@/package.json";
 
 export const generateIconCode = async (
@@ -102,32 +97,4 @@ ${code}
     filename: typescript ? `${prefix}.tsx` : `${prefix}.jsx`,
     code,
   };
-};
-
-const saveIcons = async (
-  outputPath: string,
-  filename: string,
-  code: string
-) => {
-  const cwd = getCwd();
-  const $outputPath = path.join(cwd, outputPath);
-  await fs.mkdir($outputPath, { recursive: true });
-
-  await fs.writeFile(path.join($outputPath, filename), code, "utf8");
-  log.save(path.join(outputPath, filename));
-};
-
-export const syncIcons = async (config: Config) => {
-  const groupedIcons = groupIconsByPrefix(config.icons);
-
-  await Promise.allSettled(
-    groupedIcons.map(async ([prefix, icons]) => {
-      try {
-        const data = await generateIconCode(prefix, icons, config.typescript);
-        await saveIcons(config.outputPath, data.filename, data.code);
-      } catch (error) {
-        log.error(`Not found ${prefix}`);
-      }
-    })
-  );
 };
