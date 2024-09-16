@@ -33,11 +33,16 @@ Check out the icons you want here and enter the following command:
 * Multiple Prefix
 ```sh
 > npm install react-native-svg react-native-icons-builder # or use pnpm or yarn
-> npx react-native-icons-builder@latest add Fa500Px # visit https://react-icons.github.io/react-icons/
+> npx react-native-icons-builder@latest add Fa500Px
+> ◆  Pick a prefix.
+> │  ● fa
+> │  ○ fa6
+> └
+
 # or
-> npx react-native-icons-builder@latest add fa/Fa500Px # visit https://react-icons.github.io/react-icons/
+> npx react-native-icons-builder@latest add fa/Fa500Px
 # or
-> npx react-native-icons-builder@latest fa6/Fa500Px # visit https://react-icons.github.io/react-icons/
+> npx react-native-icons-builder@latest fa6/Fa500Px
 ```
 
 
