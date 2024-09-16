@@ -30,6 +30,17 @@ Check out the icons you want here and enter the following command:
 > npx react-native-icons-builder@latest add AiFillApple # visit https://react-icons.github.io/react-icons/
 ```
 
+* Multiple Prefix
+```sh
+> npm install react-native-svg react-native-icons-builder # or use pnpm or yarn
+> npx react-native-icons-builder@latest add Fa500Px # visit https://react-icons.github.io/react-icons/
+# or
+> npx react-native-icons-builder@latest add fa/Fa500Px # visit https://react-icons.github.io/react-icons/
+# or
+> npx react-native-icons-builder@latest fa6/Fa500Px # visit https://react-icons.github.io/react-icons/
+```
+
+
 * Shorthand
 ```sh
 > npm install react-native-svg react-native-icons-builder # or use pnpm or yarn
