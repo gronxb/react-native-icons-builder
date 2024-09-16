@@ -1,4 +1,9 @@
 # react-native-icons-builder
+[![NPM](https://img.shields.io/npm/v/react-native-icons-builder)](https://www.npmjs.com/package/react-native-icons-builder)
+
+
+![react-native-icons-builder](https://raw.githubusercontent.com/gronxb/react-native-icons-builder/main/demo.gif)
+
 
 ## Introduction
 `react-native-icons-builder` is a CLI tool designed to generate React Native icons from the `react-icons` library.  
