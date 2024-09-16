@@ -1,0 +1,9 @@
+{
+  "typescript": true,
+  "outputPath": "assets/icons",
+  "icons": [
+    "bs/Bs0Circle",
+    "fa/Fa500Px",
+    "fa6/Fa500Px"
+  ]
+}

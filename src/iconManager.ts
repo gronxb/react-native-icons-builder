@@ -5,6 +5,7 @@ import { uniq } from "./utils/uniq";
 import { log } from "./utils/console";
 import { generateIconCode } from "./utils/generateIcon";
 import { saveIconCode } from "./utils/saveIconCode";
+import { searchFunction } from "./utils/searchFunction";
 
 export class IconManager {
   private config: Config;
@@ -27,6 +28,15 @@ export class IconManager {
     return this.config.icons;
   }
 
+  public async checkIfIconExists(prefix: string, iconName: string) {
+    const iconCode = await this.getIconCodeByPrefix(prefix);
+    if (!iconCode) {
+      return false;
+    }
+
+    return searchFunction(iconCode, iconName);
+  }
+
   public async getResolutionPrefixes(iconName: string) {
     const [prefix] = await separateCamelCase(iconName);
     const lowerCasePrefix = prefix.toLowerCase();
@@ -38,8 +48,7 @@ export class IconManager {
 
     for (const prefix of resolutionPrefixes) {
       try {
-        const iconCode = await this.getIconCodeByPrefix(prefix);
-        if (iconCode?.includes(iconName)) {
+        if (await this.checkIfIconExists(prefix, iconName)) {
           result.push(prefix);
         }
       } catch {}
@@ -65,7 +74,7 @@ export class IconManager {
     return this._prefixCodeMap.get(prefix);
   }
 
-  private groupIconsByPrefix() {
+  private _groupIconsByPrefix() {
     const groupedIcons: { [key: string]: string[] } = {};
 
     for (const icon of this.icons) {
@@ -80,7 +89,7 @@ export class IconManager {
 
   get groupedIcons() {
     if (!this._groupedIcons.length) {
-      this._groupedIcons = this.groupIconsByPrefix();
+      this._groupedIcons = this._groupIconsByPrefix();
     }
 
     return this._groupedIcons;
@@ -105,7 +114,7 @@ export class IconManager {
           );
           await saveIconCode(this.config.outputPath, data.filename, data.code);
         } catch (error) {
-          log.error(`Not found ${prefix}`);
+          log.notFound(prefix);
         }
       })
     );

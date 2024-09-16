@@ -13,4 +13,7 @@ export const log = {
   error: (message: string) => {
     console.log(pc.red(message));
   },
+  notFound: (message: string) => {
+    console.log(`${pc.red("Not Found:")} ${pc.bgRed(message)}`);
+  },
 };
