@@ -17,11 +17,7 @@
     "test:type": "tsc --noEmit",
     "build": "tsdown src/index.ts --format esm"
   },
-  "files": [
-    "dist",
-    "package.json",
-    "templates"
-  ],
+  "files": ["dist", "package.json", "templates"],
   "keywords": [
     "react-native",
     "icons",
@@ -52,6 +48,15 @@
     "react-icons": "5.5.0",
     "workspace-tools": "^0.36.4",
     "zod": "^3.23.8"
+  },
+  "pnpm": {
+    "override": {
+      "image-size": "1.2.1",
+      "@babel/runtime": "7.26.10",
+      "js-yaml": "4.1.1",
+      "on-headers": "1.1.0",
+      "brace-expansion": "1.1.12"
+    }
   },
   "packageManager": "pnpm@10.25.0"
 }
